@@ -1,0 +1,15 @@
+[package]
+name = "goto"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.5", features = ["derive"] }
+directories = "5.0"
+serde = { version = "1.0", features = ["derive"] }
+shellexpand = "2.1"
+toml = "0.7"
+
+[dev-dependencies]
+tempfile = "3.7"
