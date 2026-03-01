@@ -2,10 +2,7 @@ use anyhow::{Context, Result};
 use directories::ProjectDirs;
 use serde::{Deserialize, Serialize};
 use shellexpand::full;
-use std::{
-    fs,
-    path::{Path, PathBuf},
-};
+use std::{fs, path::PathBuf};
 
 const DEFAULT_CONFIG: &str = include_str!("../default_config.toml");
 
@@ -53,51 +50,11 @@ fn load_config_raw() -> Result<String> {
             .with_context(|| format!("failed to read {}", config_path.display()));
     }
 
-    maybe_migrate_legacy_config(&config_path)?;
-    if config_path.exists() {
-        return fs::read_to_string(&config_path)
-            .with_context(|| format!("failed to read {}", config_path.display()));
-    }
-
     Ok(DEFAULT_CONFIG.to_string())
-}
-
-fn maybe_migrate_legacy_config(new_config_path: &Path) -> Result<()> {
-    let Some(legacy_path) = legacy_config_file() else {
-        return Ok(());
-    };
-
-    if !legacy_path.exists() {
-        return Ok(());
-    }
-
-    if let Some(parent) = new_config_path.parent() {
-        fs::create_dir_all(parent)?;
-    }
-
-    fs::copy(&legacy_path, new_config_path).with_context(|| {
-        format!(
-            "failed to migrate config from {} to {}",
-            legacy_path.display(),
-            new_config_path.display()
-        )
-    })?;
-
-    eprintln!(
-        "migrated config from {} to {}",
-        legacy_path.display(),
-        new_config_path.display()
-    );
-    Ok(())
 }
 
 fn current_project_dirs() -> Option<ProjectDirs> {
     ProjectDirs::from("io.github", "itamiforge", "goto")
-}
-
-fn legacy_config_file() -> Option<PathBuf> {
-    ProjectDirs::from("goto", "ItamiForge", "goto")
-        .map(|dirs| dirs.config_dir().join("config.toml"))
 }
 
 #[derive(Clone, Deserialize, Serialize)]

@@ -12,7 +12,7 @@ Navigate to projects using namespace-based paths.
 - Alias support (`github/project`)
 - Dynamic tab completion for targets
 - Single static Rust binary
-- Config migration support from legacy ItamiForge location
+- Simple standalone config model
 
 ## Install
 
@@ -121,15 +121,11 @@ Rules:
 - `goto alias-remove <name> <alias>`: remove alias
 - `goto list-raw`: print effective config as TOML
 
-## Legacy config migration
-
-When `goto` starts and no new config file exists, it automatically checks the previous ItamiForge config location and copies `config.toml` into the new standalone location.
-
 ## Architecture
 
 - `src/main.rs`: command dispatch and command handlers
 - `src/cli.rs`: clap command definitions and help
-- `src/config.rs`: config path resolution, load/save, migration
+- `src/config.rs`: config path resolution and load/save
 - `src/namespace.rs`: namespace validation, lookup, completion
 - `src/shell.rs`: zsh integration setup/uninstall
 
