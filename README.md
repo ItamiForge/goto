@@ -2,6 +2,8 @@
 
 Navigate to projects using namespace-based paths.
 
+> Catalog: [ItamiForge](https://itamiforge.github.io/itamiforge/docs/projects/#goto)
+
 ## Why
 
 `goto` removes repetitive `cd` patterns when you jump between many repos and workspaces.
