@@ -1,0 +1,13 @@
+catalog: true
+slug: goto
+title: goto
+summary: Namespace-based project navigation with tab completion for the shell.
+status: active
+category: shell
+featured: false
+visibility: public
+tags:
+  - rust
+  - shell
+  - productivity
+install: cargo install --path .
